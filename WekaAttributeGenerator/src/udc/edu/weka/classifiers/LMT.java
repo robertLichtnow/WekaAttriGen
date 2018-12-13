@@ -9,12 +9,12 @@ import udc.edu.weka.attribute.Attribute;
 import udc.edu.weka.attribute.AttributeType;
 import weka.core.Instances;
 
-public class J48 extends weka.classifiers.trees.J48 {
+public class LMT extends weka.classifiers.trees.LMT {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -2842003251181268377L;
+	private static final long serialVersionUID = 7104153319997603223L;
 
 	private List<Attribute> attributes;
 
@@ -66,5 +66,6 @@ public class J48 extends weka.classifiers.trees.J48 {
 			return AttributeType.NUMERIC;
 		}
 	}
-
+	
+	
 }

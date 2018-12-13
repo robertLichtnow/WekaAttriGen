@@ -27,4 +27,36 @@ public class Attribute {
 		this.possibleValues = possibleValues;
 	}
 	
+	public String toString() {
+		StringBuilder strb = new StringBuilder();
+		
+		strb.append("{\"type\":\"");
+		switch(attributeType) {
+		case NOMINAL:
+			strb.append("NOMINAL");
+			break;
+		case NUMERIC:
+			strb.append("NUMERIC");
+			break;
+		default:
+			strb.append("UNKOWN");	
+			break;
+		}
+		strb.append("\",");
+		strb.append("\"values\":[");
+		
+		for(int i = 0; i < possibleValues.size(); i++) {
+			strb.append("\"");
+			strb.append(possibleValues.get(i));
+			strb.append("\"");
+			if(i < possibleValues.size() - 1) {
+				strb.append(",");
+			}			
+		}	
+		strb.append("]");
+		strb.append("}");
+		
+		return strb.toString();
+	}
+	
 }

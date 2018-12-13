@@ -9,12 +9,12 @@ import udc.edu.weka.attribute.Attribute;
 import udc.edu.weka.attribute.AttributeType;
 import weka.core.Instances;
 
-public class J48 extends weka.classifiers.trees.J48 {
+public class NaiveBayes extends weka.classifiers.bayes.NaiveBayes {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -2842003251181268377L;
+	private static final long serialVersionUID = 989716618197535907L;
 
 	private List<Attribute> attributes;
 
@@ -66,5 +66,5 @@ public class J48 extends weka.classifiers.trees.J48 {
 			return AttributeType.NUMERIC;
 		}
 	}
-
+	
 }
