@@ -7,9 +7,11 @@ import java.util.List;
 
 import udc.edu.weka.attribute.Attribute;
 import udc.edu.weka.attribute.AttributeType;
+import udc.edu.weka.attribute.DenseAttribute;
+import udc.edu.weka.attribute.DenseInstance;
 import weka.core.Instances;
 
-public class J48 extends weka.classifiers.trees.J48 {
+public class J48 extends weka.classifiers.trees.J48 implements Classifier{
 
 	/**
 	 * 
@@ -65,6 +67,12 @@ public class J48 extends weka.classifiers.trees.J48 {
 		else {
 			return AttributeType.NUMERIC;
 		}
+	}
+
+	@Override
+	public DenseAttribute classifyInstance(DenseInstance denseInstance) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -59,4 +59,13 @@ public class Attribute {
 		return strb.toString();
 	}
 	
+	public double parseValue(String value) throws Exception {
+		double i = 0;
+		for(String possValue : possibleValues) {
+			if(possValue.equals(value)) return i;
+			i++;
+		}
+		throw new Exception("Unparsable value: " + value);
+	}
+	
 }
