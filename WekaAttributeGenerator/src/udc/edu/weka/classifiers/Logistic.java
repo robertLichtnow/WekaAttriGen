@@ -19,6 +19,15 @@ public class Logistic extends weka.classifiers.functions.Logistic implements Cla
 	private static final long serialVersionUID = -4207789408987079381L;
 
 	private List<Attribute> attributes;
+	private int classIndex;
+
+	public int getClassIndex() {
+		return classIndex;
+	}
+
+	public void setClassIndex(int classIndex) {
+		this.classIndex = classIndex;
+	}
 
 	public List<Attribute> getAttributes() {
 		return attributes;
@@ -38,6 +47,8 @@ public class Logistic extends weka.classifiers.functions.Logistic implements Cla
 		super.buildClassifier(instances);
 		
 		int numAttributes = instances.numAttributes();
+		
+		this.classIndex = instances.classIndex();
 		
 		this.attributes = new ArrayList<Attribute>();
 		
@@ -71,9 +82,72 @@ public class Logistic extends weka.classifiers.functions.Logistic implements Cla
 	
 
 	@Override
-	public DenseAttribute classifyInstance(DenseInstance denseInstance) {
-		// TODO Auto-generated method stub
-		return null;
+	public DenseAttribute classifyInstance(DenseInstance denseInstance) throws Exception {
+		//Cria um atributo denso
+		DenseAttribute denseAttribute = new DenseAttribute();
+		
+		//Pega o atributo classe
+		Attribute attr = this.attributes.get(classIndex);
+		
+		//Cria uma lista de atributos para o framework
+		ArrayList<weka.core.Attribute> attrWeka = new ArrayList<weka.core.Attribute>();
+		
+		//Adiciona os atributos na lista
+		this.attributes.forEach((a)-> attrWeka.add(new weka.core.Attribute(a.getName(),a.getAttributeType() == AttributeType.NOMINAL)));
+		
+		//Adiciona a lista de atributos em uma lista de instâncias
+		Instances aux = new Instances("teste",attrWeka,1);
+
+		//Adiciona a nova instância na lista de instâncias
+		aux.add(denseInstance.getDenseInstance());
+		System.out.println(aux.toString());
+		
+		//Seta o index do classificador
+		aux.setClassIndex(this.classIndex);
+		
+		//Classifica a instância e obtém o resultado
+		double resultado = this.classifyInstance(aux.get(0));
+		
+		//Seta os valores dentro do resultado
+		denseAttribute.setType(attr.getAttributeType());
+		denseAttribute.setNumericalValue(resultado);		
+		if(attr.getAttributeType().equals(AttributeType.NOMINAL)) {
+			denseAttribute.setNominalValue(attr.getPossibleValues().get(new Double(resultado).intValue()));
+		}
+		
+		return denseAttribute;
+	}
+	
+	@Override
+	public double[] distributionForInstance(DenseInstance denseInstance) throws Exception {
+		//Cria um atributo denso
+		DenseAttribute denseAttribute = new DenseAttribute();
+		
+		//Pega o atributo classe
+		Attribute attr = this.attributes.get(classIndex);
+		
+		//Cria uma lista de atributos para o framework
+		ArrayList<weka.core.Attribute> attrWeka = new ArrayList<weka.core.Attribute>();
+		
+		//Adiciona os atributos na lista
+		this.attributes.forEach((a)-> attrWeka.add(new weka.core.Attribute(a.getName(),a.getAttributeType() == AttributeType.NOMINAL)));
+		
+		//Adiciona a lista de atributos em uma lista de instâncias
+		Instances aux = new Instances("teste",attrWeka,1);
+
+		//Adiciona a nova instância na lista de instâncias
+		aux.add(denseInstance.getDenseInstance());
+		
+		//Seta o index do classificador
+		aux.setClassIndex(this.classIndex);
+		
+		//Classifica a instância e obtém o resultado
+		double resultado[] = this.distributionForInstance(aux.firstInstance());
+	
+		//Seta os valores dentro do resultado
+		denseAttribute.setType(attr.getAttributeType());		
+		
+		return resultado;
 	}
 
 }
