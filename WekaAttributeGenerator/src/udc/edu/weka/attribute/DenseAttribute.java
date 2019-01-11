@@ -10,9 +10,9 @@ public class DenseAttribute implements Serializable{
 	private static final long serialVersionUID = 8868299786798684749L;
 	
 	
-	private String nominalValue;
-	private double numericalValue;
-	private AttributeType type;
+	private String nominalValue = "";
+	private double numericalValue = 0.0;
+	private AttributeType type = AttributeType.NUMERIC;
 	
 	public String getNominalValue() {
 		return nominalValue;
