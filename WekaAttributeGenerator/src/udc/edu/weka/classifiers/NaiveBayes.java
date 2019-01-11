@@ -55,6 +55,7 @@ public class NaiveBayes extends weka.classifiers.bayes.NaiveBayes implements Cla
 		for(int i = 0; i < numAttributes; i++) {
 			weka.core.Attribute attribute = instances.attribute(i);
 			Attribute attr = new Attribute();
+			attr.setAttribute(attribute);
 			attr.setName(attribute.name());
 			attr.setAttributeType(checkAttributeType(attribute));
 			List<String> possValues = new ArrayList<String>();
@@ -93,7 +94,7 @@ public class NaiveBayes extends weka.classifiers.bayes.NaiveBayes implements Cla
 		ArrayList<weka.core.Attribute> attrWeka = new ArrayList<weka.core.Attribute>();
 		
 		//Adiciona os atributos na lista
-		this.attributes.forEach((a)-> attrWeka.add(new weka.core.Attribute(a.getName(),a.getAttributeType() == AttributeType.NOMINAL)));
+		this.attributes.forEach((a)-> attrWeka.add(a.getAttribute()));
 		
 		//Adiciona a lista de atributos em uma lista de instâncias
 		Instances aux = new Instances("teste",attrWeka,1);
@@ -105,7 +106,7 @@ public class NaiveBayes extends weka.classifiers.bayes.NaiveBayes implements Cla
 		aux.setClassIndex(this.classIndex);
 		
 		//Classifica a instância e obtém o resultado
-		double resultado = this.classifyInstance(aux.firstInstance());
+		double resultado = super.classifyInstance(aux.firstInstance());
 	
 		//Seta os valores dentro do resultado
 		denseAttribute.setType(attr.getAttributeType());
@@ -129,7 +130,7 @@ public class NaiveBayes extends weka.classifiers.bayes.NaiveBayes implements Cla
 		ArrayList<weka.core.Attribute> attrWeka = new ArrayList<weka.core.Attribute>();
 		
 		//Adiciona os atributos na lista
-		this.attributes.forEach((a)-> attrWeka.add(new weka.core.Attribute(a.getName(),a.getAttributeType() == AttributeType.NOMINAL)));
+		this.attributes.forEach((a)-> attrWeka.add(a.getAttribute()));
 		
 		//Adiciona a lista de atributos em uma lista de instâncias
 		Instances aux = new Instances("teste",attrWeka,1);
@@ -141,7 +142,7 @@ public class NaiveBayes extends weka.classifiers.bayes.NaiveBayes implements Cla
 		aux.setClassIndex(this.classIndex);
 		
 		//Classifica a instância e obtém o resultado
-		double resultado[] = this.distributionForInstance(aux.firstInstance());
+		double resultado[] = super.distributionForInstance(aux.firstInstance());
 	
 		//Seta os valores dentro do resultado
 		denseAttribute.setType(attr.getAttributeType());		

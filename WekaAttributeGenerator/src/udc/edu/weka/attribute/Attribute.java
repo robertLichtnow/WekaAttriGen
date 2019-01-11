@@ -8,6 +8,8 @@ public class Attribute {
 	private String name;
 	private List<String> possibleValues;
 	
+	private weka.core.Attribute attribute;
+	
 	public AttributeType getAttributeType() {
 		return attributeType;
 	}
@@ -25,6 +27,13 @@ public class Attribute {
 	}
 	public void setPossibleValues(List<String> possibleValues) {
 		this.possibleValues = possibleValues;
+	}
+		
+	public weka.core.Attribute getAttribute() {
+		return attribute;
+	}
+	public void setAttribute(weka.core.Attribute attribute) {
+		this.attribute = attribute;
 	}
 	
 	public String toString() {
@@ -60,6 +69,7 @@ public class Attribute {
 	}
 	
 	public double parseValue(String value) throws Exception {
+		if(value.isEmpty()) return 0.0;
 		double i = 0;
 		for(String possValue : possibleValues) {
 			if(possValue.equals(value)) return i;

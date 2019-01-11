@@ -55,6 +55,7 @@ public class LMT extends weka.classifiers.trees.LMT implements Classifier{
 		for(int i = 0; i < numAttributes; i++) {
 			weka.core.Attribute attribute = instances.attribute(i);
 			Attribute attr = new Attribute();
+			attr.setAttribute(attribute);
 			attr.setName(attribute.name());
 			attr.setAttributeType(checkAttributeType(attribute));
 			List<String> possValues = new ArrayList<String>();
@@ -92,21 +93,20 @@ public class LMT extends weka.classifiers.trees.LMT implements Classifier{
 		ArrayList<weka.core.Attribute> attrWeka = new ArrayList<weka.core.Attribute>();
 		
 		//Adiciona os atributos na lista
-		this.attributes.forEach((a)-> attrWeka.add(new weka.core.Attribute(a.getName(),a.getAttributeType() == AttributeType.NOMINAL)));
+		this.attributes.forEach((a)-> attrWeka.add(a.getAttribute()));
 		
 		//Adiciona a lista de atributos em uma lista de instâncias
 		Instances aux = new Instances("teste",attrWeka,1);
 
 		//Adiciona a nova instância na lista de instâncias
 		aux.add(denseInstance.getDenseInstance());
-		System.out.println(aux.toString());
 		
 		//Seta o index do classificador
 		aux.setClassIndex(this.classIndex);
 		
 		//Classifica a instância e obtém o resultado
-		double resultado = this.classifyInstance(aux.get(0));
-		
+		double resultado = super.classifyInstance(aux.firstInstance());
+	
 		//Seta os valores dentro do resultado
 		denseAttribute.setType(attr.getAttributeType());
 		denseAttribute.setNumericalValue(resultado);		
