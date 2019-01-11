@@ -130,7 +130,7 @@ public class Logistic extends weka.classifiers.functions.Logistic implements Cla
 		ArrayList<weka.core.Attribute> attrWeka = new ArrayList<weka.core.Attribute>();
 		
 		//Adiciona os atributos na lista
-		this.attributes.forEach((a)-> attrWeka.add(new weka.core.Attribute(a.getName(),a.getAttributeType() == AttributeType.NOMINAL)));
+		this.attributes.forEach((a)-> attrWeka.add(a.getAttribute()));
 		
 		//Adiciona a lista de atributos em uma lista de instâncias
 		Instances aux = new Instances("teste",attrWeka,1);

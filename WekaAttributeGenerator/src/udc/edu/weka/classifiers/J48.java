@@ -112,7 +112,7 @@ public class J48 extends weka.classifiers.trees.J48 implements Classifier{
 		denseAttribute.setNumericalValue(resultado);		
 		if(attr.getAttributeType().equals(AttributeType.NOMINAL)) {
 			denseAttribute.setNominalValue(attr.getPossibleValues().get(new Double(resultado).intValue()));
-		}
+		}	
 		
 		return denseAttribute;
 	}
@@ -129,7 +129,7 @@ public class J48 extends weka.classifiers.trees.J48 implements Classifier{
 		ArrayList<weka.core.Attribute> attrWeka = new ArrayList<weka.core.Attribute>();
 		
 		//Adiciona os atributos na lista
-		this.attributes.forEach((a)-> attrWeka.add(new weka.core.Attribute(a.getName(),a.getAttributeType() == AttributeType.NOMINAL)));
+		this.attributes.forEach((a)-> attrWeka.add(a.getAttribute()));
 		
 		//Adiciona a lista de atributos em uma lista de instâncias
 		Instances aux = new Instances("teste",attrWeka,1);
@@ -140,11 +140,11 @@ public class J48 extends weka.classifiers.trees.J48 implements Classifier{
 		//Seta o index do classificador
 		aux.setClassIndex(this.classIndex);
 		
-		//Classifica a instância e obtém o resultado
-		double resultado[] = this.distributionForInstance(aux.firstInstance());
-	
 		//Seta os valores dentro do resultado
 		denseAttribute.setType(attr.getAttributeType());		
+		
+		//Classifica a instância e obtém o resultado
+		double resultado[] = super.distributionForInstance(aux.firstInstance());
 		
 		return resultado;
 	}
