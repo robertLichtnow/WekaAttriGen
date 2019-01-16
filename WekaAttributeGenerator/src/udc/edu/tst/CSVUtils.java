@@ -2,6 +2,7 @@ package udc.edu.tst;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -11,6 +12,8 @@ import java.util.Scanner;
 import weka.core.Attribute;
 import weka.core.DenseInstance;
 import weka.core.Instances;
+import weka.core.converters.ArffSaver;
+import weka.core.converters.CSVLoader;
 
 public class CSVUtils {
 
@@ -82,7 +85,7 @@ public class CSVUtils {
 		for(String[] instancia : linhas) {
 			double line[] = new double[instancia.length-1];
 			for(int i = 1; i<instancia.length; i++) {
-				line[i-1] = CSVUtils.parseNominalValue(atributos.get(i-1), instancia[i]);
+				line[i-1] = CSVUtils.parseNominalValueFloat(instancia[i]);
 			}
 			DenseInstance ins = new DenseInstance(1.0, line);
 			instances.add(ins);		
@@ -96,12 +99,28 @@ public class CSVUtils {
 		
 	}
 	
-	public static double parseNominalValue(Attribute attr, String value) {
+	public static void CSVtoARFFCar() throws IOException {
+		String pathCar = "C:\\Users\\mathlich\\Desktop\\datasets\\car\\car.data.csv";
+		CSVLoader loader = new CSVLoader();
+		loader.setSource(new File(pathCar));
+		Instances data = loader.getDataSet();
+		
+		String pathArffCar = "C:\\Users\\mathlich\\Desktop\\datasets\\car\\car.data.arff";
+		ArffSaver saver = new ArffSaver();
+		saver.setInstances(data);
+		saver.setFile(new File(pathArffCar));
+		saver.writeBatch();
+		
+	}
+	
+	public static double parseNominalValueFloat(String value) {
 		return Double.parseDouble(value) - 1;
 	}
 	
-	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
-		CSVUtils.CSVtoARFFLens();
+	
+	
+	public static void main(String[] args) throws IOException {
+		CSVUtils.CSVtoARFFCar();
 	}
 	
 }
