@@ -12,4 +12,5 @@ public interface Classifier {
 	public DenseAttribute classifyInstance(DenseInstance denseInstance) throws Exception;
 	public void buildClassifier(Instances ins) throws Exception;
 	public double[] distributionForInstance(DenseInstance denseInstance) throws Exception;
+	public int getClassIndex();
 }
