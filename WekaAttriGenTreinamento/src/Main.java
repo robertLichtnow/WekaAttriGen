@@ -1,7 +1,7 @@
 import java.io.File;
 
 import udc.edu.weka.classifiers.J48;
-import weka.classifiers.Classifier;
+import udc.edu.weka.classifiers.Classifier;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader;
 
