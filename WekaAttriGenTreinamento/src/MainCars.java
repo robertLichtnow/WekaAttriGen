@@ -1,14 +1,14 @@
 import java.io.File;
 
-import udc.edu.weka.classifiers.J48;
 import udc.edu.weka.classifiers.Classifier;
+import udc.edu.weka.classifiers.J48;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader;
 
-public class Main {
-	public static void main(String[] args) throws Exception {
+public class MainCars {
+	public static void main(String[] args) throws Exception{
 		ArffLoader loader = new ArffLoader();
-		loader.setSource(new File("datasets/lenses.data.arff"));
+		loader.setSource(new File("datasets/car.data.arff"));
 		
 		Instances ins = loader.getDataSet();
 		ins.setClassIndex(ins.numAttributes()-1);
@@ -16,6 +16,6 @@ public class Main {
 		Classifier cls = new J48();
 		cls.buildClassifier(ins);
 		
-		weka.core.SerializationHelper.write("models/lenses-j48.model",cls);
+		weka.core.SerializationHelper.write("models/cars-j48.model",cls);
 	}
 }
