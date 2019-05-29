@@ -1,9 +1,14 @@
 package udc.edu.weka.attribute;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Attribute {
+public class Attribute implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private AttributeType attributeType;
 	private String name;
 	private List<String> possibleValues;
